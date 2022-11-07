@@ -52,8 +52,6 @@ Route::post( '/profile/setting/phone/update/post', [ AuthenticationController::c
 Route::post( '/profile/setting/password/update/post', [ AuthenticationController::class, 'profile_setting_update_password'] )->name('profile_setting_update_password');
 
 
-
-
 // ********************    Authentication MODULE End ********************************
 
 
@@ -61,9 +59,9 @@ Route::post( '/profile/setting/password/update/post', [ AuthenticationController
 
 // ********************    PropertyController MODULE START ********************************
 
-Route::get( '/property/create', [ PropertyController::class, 'create'] )->name('property_registration_form');
+Route::get( '/property/create', [ PropertyController::class, 'create'] )->name('property_add_form');
 
-Route::post( '/property/create/post', [ PropertyController::class, 'store'] )->name('property_registration_save');
+Route::post( '/property/create/post', [ PropertyController::class, 'store'] )->name('property_add_form_save');
 
 Route::get( '/property/list', [ PropertyController::class, 'index'] )->name('property_list');
 
