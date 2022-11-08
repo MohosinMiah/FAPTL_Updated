@@ -50,12 +50,12 @@
 	</li>
 
 	<li class="nav-item">
-		<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-			aria-controls="collapseTwo">
+		<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
+			aria-controls="collapseThree">
 			<i class="fas fa-fw fa-cog"></i>
 			<span>Property Unit</span>
 		</a>
-		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+		<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
 			data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<a class="collapse-item" href="{{ route('property_unit_list') }}">List</a>
@@ -63,6 +63,20 @@
 		</div>
 	</li>
 
+	<li class="nav-item">
+		<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true"
+			aria-controls="collapseFour">
+			<i class="fas fa-fw fa-cog"></i>
+			<span>Tenant</span>
+		</a>
+		<div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+			data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<a class="collapse-item" href="{{ route('tenant_add_form') }}">Add New</a>
+				<a class="collapse-item" href="{{ route('tenant_list') }}">List</a>
+			</div>
+		</div>
+	</li>
 
 
 

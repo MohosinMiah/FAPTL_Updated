@@ -106,7 +106,7 @@ class PropertyController extends Controller
      */
     public function edit( $propertyID )
     {
-        $property = DB::table( 'properties' )->where( 'id' , $propertyID )->first();
+		$property = DB::table( 'properties' )->where( 'id' , $propertyID )->first();
 
 		$data = [
 			'property' => $property
