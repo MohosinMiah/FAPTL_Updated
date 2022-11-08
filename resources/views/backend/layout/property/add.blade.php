@@ -28,7 +28,7 @@
 		</div>
 		@endif
 		<div class="col-md-12">
-			{{--  Property Registration Form Start  {{ route('Property_registration_save') }}  --}}
+			{{--  Property Registration Form Start    --}}
 			<form method="post" action="{{ route('property_add_form_save') }}" enctype="multipart/form-data">
 				@csrf
 				<div class="form-group">

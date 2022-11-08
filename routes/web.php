@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\PropertyController;
-
+use App\Http\Controllers\PropertyUnitController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -73,3 +73,20 @@ Route::get( '/property/edit/{id}', [ PropertyController::class, 'edit'] )->name(
 
 // ********************    PropertyController MODULE End ********************************
 
+
+
+// ********************    PropertyUnitController MODULE START ********************************
+
+Route::get( '/property_unit/create/{id}', [ PropertyUnitController::class, 'create'] )->name('property_unit_add_form');
+
+Route::post( '/property_unit/create/post', [ PropertyUnitController::class, 'store'] )->name('property_unit_add_form_save');
+
+Route::get( '/property_unit/list', [ PropertyUnitController::class, 'index'] )->name('property_unit_list');
+
+Route::post( '/property_unit/update/post/{id}', [ PropertyUnitController::class, 'update'] )->name('property_unit_update_save');
+
+Route::get( '/property_unit/show/{id}', [ PropertyUnitController::class, 'show'] )->name('property_unit_show');
+
+Route::get( '/property_unit/edit/{id}', [ PropertyUnitController::class, 'edit'] )->name('property_unit_edit');
+
+// ********************    PropertyUnitController MODULE End ********************************

@@ -89,9 +89,10 @@ class PropertyController extends Controller
     public function show( $propertyID )
     {
         $property = DB::table( 'properties' )->where( 'id' , $propertyID )->first();
-
+		$property_unities = DB::table( 'property_unities' )->where( 'property_id' , $propertyID )->get();
 		$data = [
-			'property' => $property
+			'property' => $property,
+			'property_unities' => $property_unities,
 		];
 
 		return view( 'backend.layout.property.show' , compact( 'data' ) );
