@@ -24,8 +24,13 @@ class PaymentController extends Controller
     public function index()
     {
         $payments = Payment::all();
+        $tenants = Tenant::all();
+        $properties = Property::all();
 		$data = [
-			'payments' => $payments
+			'payments' => $payments,
+            'tenants' => $tenants,
+            'properties' => $properties,
+
 		];
 		return view('backend.layout.payment.index',compact('data'));
 
