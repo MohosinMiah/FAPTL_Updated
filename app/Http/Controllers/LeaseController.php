@@ -99,11 +99,19 @@ class LeaseController extends Controller
     public function show( $leaseID )
     {
         $lease = DB::table( 'leases' )->where( 'id' , $leaseID )->first();
-		$data = [
-			'lease' => $lease,
-		];
+        $tenants = Tenant::all();
+        $properties = Property::all();
+		$propertyUnits = DB::table( 'property_unities' )->where( 'property_id' , $lease->property_id )->get();
 
+		$data = [
+			'tenants' => $tenants,
+			'properties' => $properties,
+			'propertyUnits' => $propertyUnits,
+            'lease' => $lease,
+
+		];
 		return view( 'backend.layout.lease.show' , compact( 'data' ) );
+
     }
 
     
@@ -114,13 +122,22 @@ class LeaseController extends Controller
      * @param  \App\Models\Lease  $lease
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lease $lease)
+    public function edit( $leaseID )
     {
         $lease = DB::table( 'leases' )->where( 'id' , $leaseID )->first();
+        $tenants = Tenant::all();
+        $properties = Property::all();
+		$propertyUnits = DB::table( 'property_unities' )->where( 'property_id' , $lease->property_id )->get();
 
 		$data = [
-			'lease' => $lease
+			'tenants' => $tenants,
+			'properties' => $properties,
+			'propertyUnits' => $propertyUnits,
+            'lease' => $lease,
+
 		];
+
+
 
 		return view( 'backend.layout.lease.edit' , compact( 'data' ) );
 
@@ -133,12 +150,11 @@ class LeaseController extends Controller
      * @param  \App\Models\Lease  $lease
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLeaseRequest $request, Lease $lease)
+    public function update( Request $request, $leaseID )
     {
         $validator =  Validator::make($request->all(), [
-
-			'name'     => 'required',
-			'phone'     => 'required',
+			// 'name'     => 'required',
+			// 'phone'     => 'required',
 		]);
 		if( $validator->fails() )
 		{
@@ -146,19 +162,26 @@ class LeaseController extends Controller
 		}
 		else
 		{
-			$lease = Lease::find( $leaseID );
+			$lease =  Lease::find( $leaseID );
 
-			$lease->name = $request->name;
-			$lease->phone = $request->phone;
-			$lease->email = $request->email;
-			$lease->birth_date = $request->birth_date;
-			$lease->id_number = $request->id_number;
-			$lease->gender = $request->gender;
-			$lease->emergency_contact_name = $request->emergency_contact_name;
-			$lease->emergency_contact_relationship = $request->emergency_contact_relationship;
-			$lease->emergency_contact_phone = $request->emergency_contact_phone;
-			$lease->emergency_contact_email = $request->emergency_contact_email;
+			$lease->tenant_id = $request->tenant_id;
+			$lease->property_id = $request->property_id;
+			$lease->unit_id = $request->unit_id;
+			$lease->rent_amount = $request->rent_amount;
+			$lease->security_deposit = $request->security_deposit;
+			$lease->pet_security_deposit = $request->pet_security_deposit;
+
+			$lease->invoice_starting_date = $request->invoice_starting_date;
+			$lease->invoice_amount = $request->invoice_amount;
+			$lease->prorated_amount = $request->prorated_amount;
+			$lease->prorated_starting_date = $request->prorated_starting_date;
+			$lease->termination_date = $request->termination_date;
+
+			$lease->lease_start = $request->lease_start;
+			$lease->lease_end = $request->lease_end;
 			$lease->user_id = 1;
+            $lease->isActive = $request->isActive;
+
 
 			$save =  $lease->save();
 

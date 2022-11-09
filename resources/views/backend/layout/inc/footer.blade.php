@@ -7,7 +7,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; MonkeykingBD. <span style="color: green">Design and Developed By</span> <a href="http://monkeykingbd.com" target="_blank" style="color:red">Monkey Kind BD</a></span>
+            <span>Copyright &copy; AmericanBestIT. <span style="color: green">Design and Developed By</span> <a href="http://americanbestit.com" target="_blank" style="color:red">American Best IT</a></span>
         </div>
     </div>
 </footer>

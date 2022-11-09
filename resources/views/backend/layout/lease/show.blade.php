@@ -4,8 +4,11 @@
 
 <div class="container-fluid">
 
+	<?php $lease = $data['lease']; ?>
+
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800">Show Tenant</h1>
+	<h1 class="h3 mb-4 text-gray-800">Edit Lease</h1>
+
 
 	<div class="row">
 		@if(session('status'))
@@ -27,71 +30,105 @@
 			</ul>
 		</div>
 		@endif
-		<?php $tenant = $data['tenant']; ?>
 		<div class="col-md-12">
-			{{--  tenant Registration Form Start   --}}
-			<form  enctype="multipart/form-data">
+			{{--  lease Registration Form Start   --}}
+			<form>
 				<div class="form-group">
-					<label for="name">Tenant Name <span class="required_field"> (*) </span> </label>
-					<input type="text" name="name" id="name"  required class="form-control"  value="{{ $tenant->name }}" readonly>
+					<label for="tenant_id" class="form-label">Select Tenant <span class="required_field"> (*) </span></label>
+					<select id="tenant_id" class="form-control" name="tenant_id" readonly >
+						@foreach ( $data['tenants'] as $tenant )
+							<option value="{{ $tenant->id }}" <?php if( $tenant->id == $lease->tenant_id ) { echo "selected"; } ?> >{{ $tenant->name }}</option>
+						@endforeach
+					</select>
 				</div>
 
-				
 				<div class="form-group">
-					<label for="phone"> phone <span class="required_field"> (*) </span> </label>
-					<input type="text" name="phone" id="phone"  class="form-control"  value="{{ $tenant->phone }}" readonly >
+					<label for="property_id" class="form-label">Select Property <span class="required_field"> (*) </span></label>
+					<select id="property_id" class="form-control" name="property_id" readonly >
+						<option value="">Select Property</option>
+						@foreach ( $data['properties'] as $property )
+							<option value="{{ $property->id }}" <?php if( $property->id == $lease->property_id ) { echo "selected"; } ?> >{{ $property->name }}</option>
+						@endforeach
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="unit_id" class="form-label">Select Unit ID <span class="required_field"> (*) </span></label>
+					<select id="unit_id" class="form-control" name="unit_id" readonly >
+						<option value="">Select Property Unit</option>
+						@foreach ( $data['propertyUnits'] as $propertyUnit )
+							<option value="{{ $propertyUnit->id }}" <?php if( $propertyUnit->id == $lease->unit_id ) { echo "selected"; } ?> >{{ $propertyUnit->name }}</option>
+						@endforeach
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="rent_amount"> Rent Amount <span class="required_field"> (*) </span> </label>
+					<input type="number" name="rent_amount" id="rent_amount"  class="form-control"  value="{{ $lease->rent_amount }}" readonly >
 				</div>
 
 	
 
 				<div class="form-group">
-					<label for="email"> Email  </label>
-					<input type="email" name="email" id="email" class="form-control"    value="{{ $tenant->email }}" readonly >
+					<label for="security_deposit"> Security Deposit  </label>
+					<input type="number" name="security_deposit" id="security_deposit"  class="form-control"  value="{{ $lease->security_deposit }}" readonly >
 				</div>
 
 
 				<div class="form-group">
-					<label for="birth_date"> Date Of Birth  </label>
-					<input type="date" name="birth_date" id="birth_date" class="form-control"   value="{{ $tenant->birth_date }}" readonly >
+					<label for="pet_security_deposit"> Pet Security Deposit  </label>
+					<input type="number" name="pet_security_deposit" id="pet_security_deposit" class="form-control"  value="{{ $lease->pet_security_deposit }}" readonly >
+				</div>
+
+				<hr>
+				<div class="form-group">
+					<label for="invoice_starting_date"> Invoice Start Date  </label>
+					<input type="date" name="invoice_starting_date" id="invoice_starting_date" class="form-control" value="{{ $lease->invoice_starting_date }}" readonly  >
 				</div>
 
 				<div class="form-group">
-					<label for="id_number"> ID Number  </label>
-					<input type="text" name="id_number" id="id_number" class="form-control"   value="{{ $tenant->id_number }}" readonly >
+					<label for="invoice_amount"> Invoice Amount  </label>
+					<input type="number" name="invoice_amount" id="invoice_amount"  class="form-control" value="{{ $lease->invoice_amount }}" readonly >
 				</div>
 
 				<div class="form-group">
-					<label for="gender"> Gender</label>
-						<select class="form-control" name="gender" id="gender" readonly>
-							<option value="Male" <?php if( $tenant->gender == "Male" ) { echo "selected"; } ?> >Male</option>
-							<option value="Female" <?php if( $tenant->gender == "Female" ) { echo "selected"; } ?> >Female</option>
-							<option value="Other" <?php if( $tenant->gender == "Other" ) { echo "selected"; } ?>>Other</option>
+					<label for="prorated_amount"> Prorated Rent  </label>
+					<input type="number" name="prorated_amount" id="prorated_amount"  class="form-control" value="{{ $lease->prorated_amount }}" readonly >
+				</div>
+
+				<div class="form-group">
+					<label for="prorated_starting_date"> Prorated Start Date  </label>
+					<input type="date" name="prorated_starting_date" id="prorated_starting_date" class="form-control" value="{{ $lease->prorated_starting_date }}" readonly >
+				</div>
+
+				<hr>
+
+				<div class="form-group">
+					<label for="lease_start"> Lease Start  </label>
+					<input type="date" name="lease_start" id="lease_start" class="form-control" value="{{ $lease->lease_start }}" readonly >
+				</div>
+
+				<div class="form-group">
+					<label for="lease_start"> Lease End  </label>
+					<input type="date" name="lease_end" id="lease_end" class="form-control"  value="{{ $lease->lease_end }}" readonly  >
+				</div>
+
+				<div class="form-group">
+					<label for="termination_date"> Tarminated Date  </label>
+					<input type="date" name="termination_date" id="termination_date" class="form-control"  value="{{ $lease->termination_date }}" readonly  >
+				</div>
+
+				<div class="form-group">
+					<label for="isActive"> Lease Status </label>
+						<select class="form-control" name="isActive" id="isActive" readonly>
+							<option value="1" <?php if( $lease->isActive == 1 ) { echo "selected"; } ?>>Active</option>
+							<option value="2" <?php if( $lease->isActive == 2 ) { echo "selected"; } ?>>Deactive</option>
 						</select>
 				</div>
 
-				<div class="form-group">
-					<label for="emergency_contact_name"> Emergency Contact Name</label>
-					<input type="text" name="emergency_contact_name" id="emergency_contact_name" class="form-control"   value="{{ $tenant->emergency_contact_name }}" readonly >
-				</div>
-
-				<div class="form-group">
-					<label for="emergency_contact_relationship"> Emergency Contact Relationship</label>
-					<input type="text" name="emergency_contact_relationship" id="emergency_contact_relationship" class="form-control" value="{{ $tenant->emergency_contact_relationship }}" readonly >
-				</div>
-
-				<div class="form-group">
-					<label for="emergency_contact_phone"> Emergency Contact Phone</label>
-					<input type="text" name="emergency_contact_phone" id="emergency_contact_phone" class="form-control" value="{{ $tenant->emergency_contact_phone }}" readonly >
-				</div>
-
-				<div class="form-group">
-					<label for="emergency_contact_email"> Emergency Contact Email</label>
-					<input type="text" name="emergency_contact_email" id="emergency_contact_email" class="form-control"  value="{{ $tenant->emergency_contact_email }}" readonly >
-				</div>
-
-				<a t class="btn btn-primary">Back To Tenant List</a>
+				<a class="btn btn-primary">Back To Lease List</a>
 			</form>
-			{{--  tenant Registration Form Start   --}}
+			{{--  lease Registration Form Start   --}}
 
 		</div>
 	</div>

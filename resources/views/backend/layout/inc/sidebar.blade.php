@@ -82,7 +82,7 @@
 		<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true"
 			aria-controls="collapseFive">
 			<i class="fas fa-fw fa-cog"></i>
-			<span>Tenant</span>
+			<span>Lease</span>
 		</a>
 		<div id="collapseFive" class="collapse" aria-labelledby="headingFive"
 			data-parent="#accordionSidebar">

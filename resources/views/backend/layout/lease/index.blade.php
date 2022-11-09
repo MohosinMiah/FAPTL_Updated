@@ -61,8 +61,30 @@
 									<tr>
 										<td>{{ $lease->id }}</td>
 										<td>{{ $tenant->name }}</td>
-										<td>{{ $property->name }}</td>
-										<td>{{ $property_unite->name }}</td>
+										<td>
+											<?php
+												if( $property )
+												{
+													echo $property->name;
+												}
+												else
+												{
+													echo '';
+												}
+											?>
+										</td>
+										<td>
+											<?php
+											if( $property_unite )
+											{
+												echo $property_unite->name;
+											}
+											else
+											{
+												echo '';
+											}
+										?>
+										</td>
 										<td>{{ $lease->rent_amount }}</td>
 										<td>{{ $lease->lease_start }}</td>
 										<td>{{ $lease->lease_end }}</td>
