@@ -15,7 +15,7 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800"> Tenant List</h1>
+	<h1 class="h3 mb-4 text-gray-800"> Lease List</h1>
 
 	<div class="row">
 		<div class="col-md-12">
@@ -29,7 +29,7 @@
 							<thead>
 								<tr>
 									<th>ID</th>
-									<th>Tenant Name</th>
+									<th>Lease Name</th>
 									<th>Property Name</th>
 									<th>Property Unit</th>
 									<th>Rent Amount</th>
@@ -41,7 +41,7 @@
 							<tfoot>
 								<tr>
 									<th>ID</th>
-									<th>Tenant Name</th>
+									<th>Lease Name</th>
 									<th>Property Name</th>
 									<th>Property Unit</th>
 									<th>Rent Amount</th>
