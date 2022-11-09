@@ -114,19 +114,17 @@ class PaymentController extends Controller
      * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payment $payment)
+    public function edit( $paymentID )
     {
-        $payment = DB::table( 'payments' )->where( 'id' , $paymentID )->first();
 		$tenants = Tenant::all();
-		$properties = Property::all();
-		$propertyUnits = DB::table( 'property_unities' )->where( 'property_id' , $payment->property_id )->get();
-
+        $payment = DB::table( 'payments' )->where( 'id' , $paymentID )->first();
+        $property  = DB::table( 'properties' )->select( 'id', 'name' )->where( 'id' , $payment->property_id  )->first();
+		$property_unite = DB::table( 'property_unities' )->select( 'id', 'name' )->where( 'id' , $payment->unit_id  )->first();
 		$data = [
-			'tenants' => $tenants,
-			'properties' => $properties,
-			'propertyUnits' => $propertyUnits,
+            'tenants' => $tenants,
 			'payment' => $payment,
-
+			'property' => $property,
+			'property_unite' => $property_unite,
 		];
 
 
@@ -142,7 +140,7 @@ class PaymentController extends Controller
      * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePaymentRequest $request, Payment $payment)
+    public function update( Request $request, $paymentID )
     {
         $validator =  Validator::make($request->all(), [
 			// 'name'     => 'required',
@@ -155,27 +153,17 @@ class PaymentController extends Controller
 		}
 		else
 		{
-			$payment =  Payment::find( $paymentID );
+            $payment =  Payment::find( $paymentID );
 
 			$payment->tenant_id = $request->tenant_id;
 			$payment->property_id = $request->property_id;
 			$payment->unit_id = $request->unit_id;
-			$payment->rent_amount = $request->rent_amount;
-			$payment->security_deposit = $request->security_deposit;
-			$payment->pet_security_deposit = $request->pet_security_deposit;
-
-			$payment->invoice_starting_date = $request->invoice_starting_date;
-			$payment->invoice_amount = $request->invoice_amount;
-			$payment->prorated_amount = $request->prorated_amount;
-			$payment->prorated_starting_date = $request->prorated_starting_date;
-			$payment->termination_date = $request->termination_date;
-
-			$payment->payment_start = $request->payment_start;
-			$payment->payment_end = $request->payment_end;
+			$payment->payment_amount = $request->payment_amount;
+			$payment->payment_date	 = $request->payment_date	;
+			$payment->payment_purpose = $request->payment_purpose;
+			$payment->payment_status = $request->payment_status;
+			$payment->note = $request->note;
 			$payment->user_id = 1;
-            $payment->isActive = $request->isActive;
-
-
 			$save =  $payment->save();
 
 			return redirect(route('payment_edit',$paymentID))->with('status', 'Success, Payment is Updated');

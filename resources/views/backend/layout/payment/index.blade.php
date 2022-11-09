@@ -89,8 +89,50 @@
 										</td>
 										<td>{{ $payment->payment_amount }}</td>
 										<td>{{ $payment->payment_date }}</td>
-										<td>{{ $payment->payment_status }}</td>
-										<td>{{ $payment->payment_purpose }}</td>
+										<td>
+											<?php
+												switch( $payment->payment_status )
+												{
+													case 1:
+														echo 'Rent';
+														break;
+													case 2:
+														echo 'Prorated Rent';
+														break;
+													case 3:
+														echo 'Security Deposit';
+														break;
+													case 4:
+														echo 'Damage';
+														break;
+													case 5:
+														echo 'Other';
+														break;
+													default:
+														echo '';
+
+												}
+											?>
+										</td>
+										<td>
+											<?php
+											switch( $payment->payment_purpose )
+												{
+													case 1:
+														echo 'PENDING';
+														break;
+													case 2:
+														echo 'RECORDED';
+														break;
+													case 3:
+														echo 'DEPOSITED';
+														break;
+													default:
+														echo '';
+
+												}
+											?>
+										</td>
 										<td>
 											<a class="btn btn-xs btn-info" href="{{ route('payment_show', $payment->id) }}"><i class="fa fa-eye"></i></a>
                                             <a class="btn btn-xs btn-success" href="{{ route('payment_edit', $payment->id) }}"><i class="fa fa-edit"></i></a>

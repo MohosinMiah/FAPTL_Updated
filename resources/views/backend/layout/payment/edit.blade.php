@@ -1,11 +1,12 @@
 @extends('backend.home')
+
 @section('js')
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <!-- Page level custom scripts -->
 <script src="{{ asset('js/jquery.searchabledropdown-1.0.8.min.js') }}"></script>
 <script>
 	$(document).ready(function() {
-		$("select").searchable({
+		$("#tenant_id").searchable({
 			maxListSize: 20,						// if list size are less than maxListSize, show them all
 			maxMultiMatch: 10,						// how many matching entries should be displayed
 			exactMatch: true,						// Exact matching on search
@@ -20,26 +21,33 @@
 	</script>
 
 	<script type="text/javascript">
-		$('#property_id').change(function(){
-			console.log( nid );
-			var nid = $(this).val();
-			if(nid > 0)
+		$('#tenant_id').change(function(){
+			var id = $(this).val();
+			console.log( id );
+
+			if( id > 0)
 			{
 				$.ajax({
 				   type:"get",
-				   url:"http://127.0.0.1:8000/property/unit/list/1",
+				   url:"http://127.0.0.1:8000/get/lease_by_tenant_id/"+id,
 				   'type': 'GET',
 				   'dataType': 'JSON',
 				   success:function(res)
 				   {       
-						if(res)
+						if( res['error'] )
 						{
+							$("#property_id").empty();
 							$("#unit_id").empty();
-							$.each(res,function(key,value){
-								console.log(value);
-								$("#unit_id").append('<option value="'+value.id+'">'+value.name+'</option>');
-							});
+							$('#payment_amount').val( '' );
 						}
+						else
+						{
+							$("#property_id").append('<option value="'+res['property_id']+'">'+res['property_name']+'</option>');
+							$("#unit_id").append('<option value="'+res['propertyunit_id']+'">'+res['propertyunit_name']+'</option>');
+							$('#payment_amount').val( res['rentamount'] );
+						}
+						
+
 				   }
 				});
 			}
@@ -52,15 +60,17 @@
 
 		
 @endsection
+
 @section('content')
 
 <div class="container-fluid">
 
-	<?php $lease = $data['lease']; ?>
+	<?php
+		$payment = $data['payment'];
+	?>
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800">Edit Lease</h1>
-
+	<h1 class="h3 mb-4 text-gray-800">Update Payment</h1>
 
 	<div class="row">
 		@if(session('status'))
@@ -83,106 +93,78 @@
 		</div>
 		@endif
 		<div class="col-md-12">
-			{{--  lease Registration Form Start   --}}
-			<form method="post" action="{{ route('lease_update_save' , $lease->id ) }}" enctype="multipart/form-data">
+			{{--  Payment Registration Form Start    --}}
+			<form method="post" action="{{ route('payment_update_save' , $payment->id ) }}" enctype="multipart/form-data">
 				@csrf
-				
+
 				<div class="form-group">
 					<label for="tenant_id" class="form-label">Select Tenant <span class="required_field"> (*) </span></label>
-					<select id="tenant_id" class="form-control" name="tenant_id">
+					<select id="tenant_id" class="form-control" name="tenant_id" required>
+						<option value="">Select Tenant</option>
 						@foreach ( $data['tenants'] as $tenant )
-							<option value="{{ $tenant->id }}" <?php if( $tenant->id == $lease->tenant_id ) { echo "selected"; } ?> >{{ $tenant->name }}</option>
+							<option value="{{ $tenant->id }}" <?php if( $tenant->id == $payment->tenant_id ) { echo "selected"; } ?> > {{ $tenant->name }} </option>
 						@endforeach
 					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="payment_amount"> Payment Amount <span class="required_field"> (*) </span> </label>
+					<input type="number" name="payment_amount" id="payment_amount"  class="form-control"  value="{{ $payment->payment_amount }}"   required>
 				</div>
 
 				<div class="form-group">
 					<label for="property_id" class="form-label">Select Property <span class="required_field"> (*) </span></label>
-					<select id="property_id" class="form-control" name="property_id">
-						<option value="">Select Property</option>
-						@foreach ( $data['properties'] as $property )
-							<option value="{{ $property->id }}" <?php if( $property->id == $lease->property_id ) { echo "selected"; } ?> >{{ $property->name }}</option>
-						@endforeach
+					<select id="property_id" class="form-control" name="property_id" required>
+						<option value="{{ $data['property']->id }}" >{{ $data['property']->name }}</option>
 					</select>
 				</div>
 
 				<div class="form-group">
-					<label for="unit_id" class="form-label">Select Unit ID <span class="required_field"> (*) </span></label>
+					<label for="unit_id" class="form-label">Select Unit ID </label>
 					<select id="unit_id" class="form-control" name="unit_id">
-						<option value="">Select Property Unit</option>
-						@foreach ( $data['propertyUnits'] as $propertyUnit )
-							<option value="{{ $propertyUnit->id }}" <?php if( $propertyUnit->id == $lease->unit_id ) { echo "selected"; } ?> >{{ $propertyUnit->name }}</option>
-						@endforeach
+						<option value="{{ $data['property_unite']->id }}" >{{ $data['property_unite']->name }}</option>
+
 					</select>
 				</div>
 
+
 				<div class="form-group">
-					<label for="rent_amount"> Rent Amount <span class="required_field"> (*) </span> </label>
-					<input type="number" name="rent_amount" id="rent_amount"  class="form-control"  value="{{ $lease->rent_amount }}" >
+					<label for="payment_date"> Payment Date  </label>
+					<input type="date" name="payment_date" id="payment_date" class="form-control"  value="{{ $payment->payment_date }}"  >
 				</div>
 
+
+
+				<div class="form-group">
+					<label for="payment_purpose" class="form-label">Payment Purpose  <span class="required_field"> (*) </span></label>
+					<select id="payment_purpose" class="form-control" name="payment_purpose">
+							<option value="1" <?php if( $payment->payment_purpose == 1 ) { echo "selected"; } ?> > Rent</option>
+							<option value="2" <?php if( $payment->payment_purpose == 2 ) { echo "selected"; } ?> >Prorated Rent</option>
+							<option value="3" <?php if( $payment->payment_purpose == 3 ) { echo "selected"; } ?> >Security Deposit</option>
+							<option value="4" <?php if( $payment->payment_purpose == 4 ) { echo "selected"; } ?> >Damage</option>
+							<option value="5" <?php if( $payment->payment_purpose == 5 ) { echo "selected"; } ?> >Other</option>
+					</select>
+				</div>
 	
 
 				<div class="form-group">
-					<label for="security_deposit"> Security Deposit  </label>
-					<input type="number" name="security_deposit" id="security_deposit"  class="form-control"  value="{{ $lease->security_deposit }}" >
-				</div>
-
-
-				<div class="form-group">
-					<label for="pet_security_deposit"> Pet Security Deposit  </label>
-					<input type="number" name="pet_security_deposit" id="pet_security_deposit" class="form-control"  value="{{ $lease->pet_security_deposit }}" >
-				</div>
-
-				<hr>
-				<div class="form-group">
-					<label for="invoice_starting_date"> Invoice Start Date  </label>
-					<input type="date" name="invoice_starting_date" id="invoice_starting_date" class="form-control" value="{{ $lease->invoice_starting_date }}"   >
+					<label for="payment_status" class="form-label">Payment Status  <span class="required_field"> (*) </span></label>
+					<select id="payment_status" class="form-control" name="payment_status">
+							<option value="1" <?php if( $payment->payment_status == 1 ) { echo "selected"; } ?> >PENDING</option>
+							<option value="2" <?php if( $payment->payment_status == 2 ) { echo "selected"; } ?>>RECORDED</option>
+							<option value="3" <?php if( $payment->payment_status == 3 ) { echo "selected"; } ?>>DEPOSITED</option>
+					</select>
 				</div>
 
 				<div class="form-group">
-					<label for="invoice_amount"> Invoice Amount  </label>
-					<input type="number" name="invoice_amount" id="invoice_amount"  class="form-control" value="{{ $lease->invoice_amount }}"  >
+					<label for="note"> Payment Note </label>
+					<textarea name="note" id="note"  >{{ $payment->note }}</textarea> 
 				</div>
+				
 
-				<div class="form-group">
-					<label for="prorated_amount"> Prorated Rent  </label>
-					<input type="number" name="prorated_amount" id="prorated_amount"  class="form-control" value="{{ $lease->prorated_amount }}" >
-				</div>
-
-				<div class="form-group">
-					<label for="prorated_starting_date"> Prorated Start Date  </label>
-					<input type="date" name="prorated_starting_date" id="prorated_starting_date" class="form-control" value="{{ $lease->prorated_starting_date }}"  >
-				</div>
-
-				<hr>
-
-				<div class="form-group">
-					<label for="lease_start"> Lease Start  </label>
-					<input type="date" name="lease_start" id="lease_start" class="form-control" value="{{ $lease->lease_start }}"  >
-				</div>
-
-				<div class="form-group">
-					<label for="lease_start"> Lease End  </label>
-					<input type="date" name="lease_end" id="lease_end" class="form-control"  value="{{ $lease->lease_end }}"   >
-				</div>
-
-				<div class="form-group">
-					<label for="termination_date"> Tarminated Date  </label>
-					<input type="date" name="termination_date" id="termination_date" class="form-control"  value="{{ $lease->termination_date }}"   >
-				</div>
-
-				<div class="form-group">
-					<label for="isActive"> Lease Status </label>
-						<select class="form-control" name="isActive" id="isActive" required>
-							<option value="1" <?php if( $lease->isActive == 1 ) { echo "selected"; } ?>>Active</option>
-							<option value="2" <?php if( $lease->isActive == 2 ) { echo "selected"; } ?>>Deactive</option>
-						</select>
-				</div>
-
-				<button type="submit" class="btn btn-primary">Update lease</button>
+				<button type="submit" class="btn btn-primary">Update Payment</button>
 			</form>
-			{{--  lease Registration Form Start   --}}
+			{{--  Payment Registration Form Start   --}}
 
 		</div>
 	</div>
