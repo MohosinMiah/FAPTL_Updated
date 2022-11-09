@@ -21,13 +21,12 @@
 
 	<script type="text/javascript">
 		$('#property_id').change(function(){
-			console.log( nid );
-			var nid = $(this).val();
-			if(nid > 0)
+			var id = $(this).val();
+			if( id > 0)
 			{
 				$.ajax({
 				   type:"get",
-				   url:"http://127.0.0.1:8000/property/unit/list/1",
+				   url:"http://127.0.0.1:8000/property/unit/list/"+id,
 				   'type': 'GET',
 				   'dataType': 'JSON',
 				   success:function(res)

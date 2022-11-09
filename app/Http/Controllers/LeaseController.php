@@ -24,18 +24,20 @@ class LeaseController extends Controller
      */
     public function index()
     {
-        $leases = Lease::all();
+
+		$leases = Lease::all();
 		$data = [
 			'leases' => $leases
 		];
 		return view('backend.layout.lease.index',compact('data'));
+
     }
 
 
     public function property_unit_list( $propertyID )
     {
-        $property_units = DB::table('property_unities')->where( 'property_id' , $propertyID )->get();
-        return response()->json($property_units); 
+		$property_units = DB::table('property_unities')->where( 'property_id' , $propertyID )->get();
+		return response()->json($property_units); 
     }
     /**
      * Show the form for creating a new resource.
@@ -61,7 +63,7 @@ class LeaseController extends Controller
      */
     public function store(Request $request)
     {
-        $validator =  Validator::make( $request->all(), [
+		$validator =  Validator::make( $request->all(), [
 			// 'name'     => 'required',
 			// 'phone'     => 'required',
 		]);
@@ -86,7 +88,6 @@ class LeaseController extends Controller
 			$save =  $lease->save();
 
 			return redirect(route('lease_add_form'))->with('status', 'Success, Lease is successfully created');
-
 		}
     }
 
@@ -98,16 +99,16 @@ class LeaseController extends Controller
      */
     public function show( $leaseID )
     {
-        $lease = DB::table( 'leases' )->where( 'id' , $leaseID )->first();
-        $tenants = Tenant::all();
-        $properties = Property::all();
+		$lease = DB::table( 'leases' )->where( 'id' , $leaseID )->first();
+		$tenants = Tenant::all();
+		$properties = Property::all();
 		$propertyUnits = DB::table( 'property_unities' )->where( 'property_id' , $lease->property_id )->get();
 
 		$data = [
 			'tenants' => $tenants,
 			'properties' => $properties,
 			'propertyUnits' => $propertyUnits,
-            'lease' => $lease,
+			'lease' => $lease,
 
 		];
 		return view( 'backend.layout.lease.show' , compact( 'data' ) );
@@ -124,16 +125,16 @@ class LeaseController extends Controller
      */
     public function edit( $leaseID )
     {
-        $lease = DB::table( 'leases' )->where( 'id' , $leaseID )->first();
-        $tenants = Tenant::all();
-        $properties = Property::all();
+		$lease = DB::table( 'leases' )->where( 'id' , $leaseID )->first();
+		$tenants = Tenant::all();
+		$properties = Property::all();
 		$propertyUnits = DB::table( 'property_unities' )->where( 'property_id' , $lease->property_id )->get();
 
 		$data = [
 			'tenants' => $tenants,
 			'properties' => $properties,
 			'propertyUnits' => $propertyUnits,
-            'lease' => $lease,
+			'lease' => $lease,
 
 		];
 

@@ -6,7 +6,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyUnitController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\LeaseController;
-
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -132,3 +132,25 @@ Route::get( '/lease/show/{id}', [ LeaseController::class, 'show'] )->name('lease
 Route::get( '/lease/edit/{id}', [ LeaseController::class, 'edit'] )->name('lease_edit');
 
 // ********************    PropertyCoLeaseControllerntroller MODULE End ********************************
+
+
+
+// ********************    PaymentController MODULE START ********************************
+
+Route::get( '/payment/collect', [ PaymentController::class, 'create'] )->name('payment_add_form');
+
+Route::post( '/payment/collect/post', [ PaymentController::class, 'store'] )->name('payment_add_form_save');
+
+Route::get( '/payment/list', [ PaymentController::class, 'index'] )->name('payment_list');
+
+Route::post( '/payment/update/post/{id}', [ PaymentController::class, 'update'] )->name('payment_update_save');
+
+Route::get( '/payment/show/{id}', [ PaymentController::class, 'show'] )->name('payment_show');
+
+Route::get( '/payment/edit/{id}', [ PaymentController::class, 'edit'] )->name('payment_edit');
+
+
+Route::get( '/get/lease_by_tenant_id/{id}', [ PaymentController::class, 'lease_by_tenant_id'] );
+
+
+// ********************    PaymentController0 MODULE End ********************************

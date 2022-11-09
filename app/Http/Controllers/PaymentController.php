@@ -3,8 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
-use App\Http\Requests\StorePaymentRequest;
-use App\Http\Requests\UpdatePaymentRequest;
+use App\Models\Tenant;
+use App\Models\Property;
+use App\Models\PropertyUnit;
+// use App\Http\Requests\StorePaymentRequest;
+// use App\Http\Requests\UpdatePaymentRequest;
+
+use Illuminate\Http\Request;
+use DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Routing\Redirector;
 
 class PaymentController extends Controller
 {
@@ -15,7 +23,12 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        $payments = Payment::all();
+		$data = [
+			'payments' => $payments
+		];
+		return view('backend.layout.payment.index',compact('data'));
+
     }
 
     /**
@@ -25,7 +38,13 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        //
+        $tenants    = Tenant::all();
+        $properties = Property::all();
+		$data = [
+			'tenants' => $tenants,
+			'properties' => $properties,
+		];
+		return view('backend.layout.payment.add',compact('data'));
     }
 
     /**
@@ -34,9 +53,35 @@ class PaymentController extends Controller
      * @param  \App\Http\Requests\StorePaymentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePaymentRequest $request)
+    public function store( Request $request)
     {
-        //
+        $validator =  Validator::make( $request->all(), [
+			// 'name'     => 'required',
+			// 'phone'     => 'required',
+		]);
+
+		if( $validator->fails() )
+		{
+			return redirect(route('payment_add_form'))->with('status', 'Fail, Payment is not created');
+		}
+		else
+		{
+			$payment = new Payment();
+
+			$payment->tenant_id = $request->tenant_id;
+			$payment->property_id = $request->property_id;
+			$payment->unit_id = $request->unit_id;
+			$payment->payment_amount = $request->payment_amount;
+			$payment->payment_date	 = $request->payment_date	;
+			$payment->payment_purpose = $request->payment_purpose;
+			$payment->payment_status = $request->payment_status;
+			$payment->note = $request->note;
+			$payment->user_id = 1;
+			$save =  $payment->save();
+
+			return redirect(route('payment_add_form'))->with('status', 'Success, Payment is successfully created');
+		}
+
     }
 
     /**
@@ -47,7 +92,20 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        //
+        $payment = DB::table( 'payments' )->where( 'id' , $paymentID )->first();
+		$tenants = Tenant::all();
+		$properties = Property::all();
+		$propertyUnits = DB::table( 'property_unities' )->where( 'property_id' , $payment->property_id )->get();
+
+		$data = [
+			'tenants' => $tenants,
+			'properties' => $properties,
+			'propertyUnits' => $propertyUnits,
+			'payment' => $payment,
+
+		];
+		return view( 'backend.layout.payment.show' , compact( 'data' ) );
+
     }
 
     /**
@@ -58,7 +116,23 @@ class PaymentController extends Controller
      */
     public function edit(Payment $payment)
     {
-        //
+        $payment = DB::table( 'payments' )->where( 'id' , $paymentID )->first();
+		$tenants = Tenant::all();
+		$properties = Property::all();
+		$propertyUnits = DB::table( 'property_unities' )->where( 'property_id' , $payment->property_id )->get();
+
+		$data = [
+			'tenants' => $tenants,
+			'properties' => $properties,
+			'propertyUnits' => $propertyUnits,
+			'payment' => $payment,
+
+		];
+
+
+
+		return view( 'backend.layout.payment.edit' , compact( 'data' ) );
+
     }
 
     /**
@@ -70,9 +144,74 @@ class PaymentController extends Controller
      */
     public function update(UpdatePaymentRequest $request, Payment $payment)
     {
-        //
+        $validator =  Validator::make($request->all(), [
+			// 'name'     => 'required',
+			// 'phone'     => 'required',
+		]);
+
+		if( $validator->fails() )
+		{
+			return redirect(route('payment_edit',$paymentID))->with('status', 'Fail, Payment is not updated');
+		}
+		else
+		{
+			$payment =  Payment::find( $paymentID );
+
+			$payment->tenant_id = $request->tenant_id;
+			$payment->property_id = $request->property_id;
+			$payment->unit_id = $request->unit_id;
+			$payment->rent_amount = $request->rent_amount;
+			$payment->security_deposit = $request->security_deposit;
+			$payment->pet_security_deposit = $request->pet_security_deposit;
+
+			$payment->invoice_starting_date = $request->invoice_starting_date;
+			$payment->invoice_amount = $request->invoice_amount;
+			$payment->prorated_amount = $request->prorated_amount;
+			$payment->prorated_starting_date = $request->prorated_starting_date;
+			$payment->termination_date = $request->termination_date;
+
+			$payment->payment_start = $request->payment_start;
+			$payment->payment_end = $request->payment_end;
+			$payment->user_id = 1;
+            $payment->isActive = $request->isActive;
+
+
+			$save =  $payment->save();
+
+			return redirect(route('payment_edit',$paymentID))->with('status', 'Success, Payment is Updated');
+		}
     }
 
+
+
+
+    public function lease_by_tenant_id( $tenantID )
+    {
+        
+        $lease = DB::table('leases')->where( 'tenant_id' , $tenantID )->orderBy('id', 'DESC')->first();
+        if( !empty( $lease )   &&  $lease->isActive == 1 )
+        {
+            $property = DB::table('properties')->where( 'id' , $lease->property_id )->first();
+            $propertyunit = DB::table('property_unities')->where( 'id' , $lease->unit_id )->first();
+
+            $data['property_id'] = $property->id;
+            $data['property_name'] = $property->name;
+
+            $data['propertyunit_id'] = $propertyunit->id;
+            $data['propertyunit_name'] = $propertyunit->name;
+
+            $data['rentamount'] = $lease->rent_amount;
+       
+            return response()->json($data); 
+
+        }
+        else
+        {
+            $data['error'] = 'Data Not Found';
+            return response()->json($data); 
+        }
+
+    }
     /**
      * Remove the specified resource from storage.
      *

@@ -24,11 +24,29 @@
 
 	<!-- Nav Item - Dashboard -->
 	<li class="nav-item">
-		<a class="nav-link" href="/">
+		<a class="nav-link" href="{{ route('payment_add_form') }}">
 			<i class="fas fa-fw fa-tachometer-alt"></i>
-			<span>Dashboard</span></a>
+			<span>Collect Payments</span></a>
 	</li>
 
+	<li class="nav-item">
+		<a class="nav-link" href="{{ route('payment_list') }}">
+			<i class="fas fa-fw fa-tachometer-alt"></i>
+			<span>Report</span></a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" href="/">
+			<i class="fas fa-fw fa-tachometer-alt"></i>
+			<span>Pending Payments</span></a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" href="/">
+			<i class="fas fa-fw fa-tachometer-alt"></i>
+			<span>Recorded Payments</span></a>
+	</li>
+	
 	<!-- Divider -->
 	<hr class="sidebar-divider">
 
