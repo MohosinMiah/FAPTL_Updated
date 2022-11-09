@@ -78,6 +78,20 @@
 		</div>
 	</li>
 
+	<li class="nav-item">
+		<a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true"
+			aria-controls="collapseFive">
+			<i class="fas fa-fw fa-cog"></i>
+			<span>Tenant</span>
+		</a>
+		<div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+			data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<a class="collapse-item" href="{{ route('lease_add_form') }}">Add New</a>
+				<a class="collapse-item" href="{{ route('lease_list') }}">List</a>
+			</div>
+		</div>
+	</li>
 
 
 	<!-- Sidebar Toggler (Sidebar) -->

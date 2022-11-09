@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyUnitController;
 use App\Http\Controllers\TenantController;
+use App\Http\Controllers\LeaseController;
 
 
 /*
@@ -111,3 +112,23 @@ Route::get( '/tenant/show/{id}', [ TenantController::class, 'show'] )->name('ten
 Route::get( '/tenant/edit/{id}', [ TenantController::class, 'edit'] )->name('tenant_edit');
 
 // ********************    TenantController MODULE End ********************************
+
+
+
+// ********************    LeaseController MODULE START ********************************
+
+Route::get( '/lease/create', [ LeaseController::class, 'create'] )->name('lease_add_form');
+
+Route::post( '/lease/create/post', [ LeaseController::class, 'store'] )->name('lease_add_form_save');
+
+Route::get( '/lease/list', [ LeaseController::class, 'index'] )->name('lease_list');
+
+Route::get( '/property/unit/list/{id}', [ LeaseController::class, 'property_unit_list'] );
+
+Route::post( '/lease/update/post/{id}', [ LeaseController::class, 'update'] )->name('lease_update_save');
+
+Route::get( '/lease/show/{id}', [ LeaseController::class, 'show'] )->name('lease_show');
+
+Route::get( '/lease/edit/{id}', [ LeaseController::class, 'edit'] )->name('lease_edit');
+
+// ********************    PropertyCoLeaseControllerntroller MODULE End ********************************
