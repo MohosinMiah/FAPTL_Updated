@@ -143,6 +143,10 @@ Route::post( '/payment/collect/post', [ PaymentController::class, 'store'] )->na
 
 Route::get( '/payment/list', [ PaymentController::class, 'index'] )->name('payment_list');
 
+Route::get( '/payment/list/pending', [ PaymentController::class, 'pending_index'] )->name('payment_list_pending');
+
+Route::get( '/payment/list/recorded', [ PaymentController::class, 'recorded_index'] )->name('payment_list_recorded');
+
 Route::post( '/payment/update/post/{id}', [ PaymentController::class, 'update'] )->name('payment_update_save');
 
 Route::get( '/payment/show/{id}', [ PaymentController::class, 'show'] )->name('payment_show');
@@ -151,6 +155,8 @@ Route::get( '/payment/edit/{id}', [ PaymentController::class, 'edit'] )->name('p
 
 
 Route::get( '/get/lease_by_tenant_id/{id}', [ PaymentController::class, 'lease_by_tenant_id'] );
+
+Route::get( '/payment/filter', [ PaymentController::class, 'payment_filter'] )->name('payment_filter');
 
 
 // ********************    PaymentController0 MODULE End ********************************

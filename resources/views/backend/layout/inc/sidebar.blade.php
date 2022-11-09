@@ -36,13 +36,13 @@
 	</li>
 
 	<li class="nav-item">
-		<a class="nav-link" href="/">
+		<a class="nav-link" href="{{ route('payment_list_pending') }}">
 			<i class="fas fa-fw fa-tachometer-alt"></i>
 			<span>Pending Payments</span></a>
 	</li>
 
 	<li class="nav-item">
-		<a class="nav-link" href="/">
+		<a class="nav-link" href="{{ route('payment_list_recorded') }}">
 			<i class="fas fa-fw fa-tachometer-alt"></i>
 			<span>Recorded Payments</span></a>
 	</li>

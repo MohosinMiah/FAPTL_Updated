@@ -73,28 +73,28 @@
 			<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 				aria-labelledby="alertsDropdown">
 				<h6 class="dropdown-header">
-					Latest Appointments
+					Latest Payments
 				</h6>
 				<?php 
-				{{--  $appointments = DB::table('appointments')->orderBy('id','DESC')->limit(5)->get();
-				foreach( $appointments as $appointment )
+				{{--  $payments = DB::table('payments')->orderBy('id','DESC')->limit(5)->get();
+				foreach( $payments as $payment )
 				{
 					?>
-					<a class="dropdown-item d-flex align-items-center" href="{{ route( 'appointment_show', $appointment->id ) }}">
+					<a class="dropdown-item d-flex align-items-center" href="{{ route( 'payment_show', $payment->id ) }}">
 						<div class="mr-3">
 							<div class="icon-circle bg-primary">
 								<i class="fas fa-file-alt text-white"></i>
 							</div>
 						</div>
 						<div>
-							<div class="small text-gray-500">{{ $appointment->date }}</div>
-							<span class="font-weight-bold">{{ $appointment->name }}</span>
+							<div class="small text-gray-500">{{ $payment->date }}</div>
+							<span class="font-weight-bold">{{ $payment->payment_amount }}</span>
 						</div>
 					</a>
 					<?php
 				}  --}}
 				?>
-				{{--  <a class="dropdown-item text-center small text-gray-500" href="{{ route('appointment_list') }}">Show All Alerts</a>  --}}
+				{{--  <a class="dropdown-item text-center small text-gray-500" href="{{ route('payment_list') }}">Show All Alerts</a>  --}}
 			</div>
 		</li>
 

@@ -26,13 +26,55 @@ class PaymentController extends Controller
         $payments = Payment::all();
         $tenants = Tenant::all();
         $properties = Property::all();
-		$data = [
-			'payments' => $payments,
+        $data = [
+            'payments' => $payments,
             'tenants' => $tenants,
             'properties' => $properties,
 
-		];
-		return view('backend.layout.payment.index',compact('data'));
+        ];
+        return view('backend.layout.payment.index',compact('data'));
+
+    }
+
+
+       /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pending_index()
+    {
+        $payments = Payment::where( 'payment_status', 1 )->get();
+        $tenants = Tenant::all();
+        $properties = Property::all();
+        $data = [
+            'payments' => $payments,
+            'tenants' => $tenants,
+            'properties' => $properties,
+
+        ];
+        return view( 'backend.layout.payment.pending_index', compact('data') );
+
+    }
+
+
+       /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function recorded_index()
+    {
+        $payments = Payment::where( 'payment_status', 2 )->get();
+        $tenants = Tenant::all();
+        $properties = Property::all();
+        $data = [
+            'payments' => $payments,
+            'tenants' => $tenants,
+            'properties' => $properties,
+
+        ];
+        return view('backend.layout.payment.recorded_index',compact('data'));
 
     }
 
@@ -205,6 +247,76 @@ class PaymentController extends Controller
         }
 
     }
+
+
+    public function payment_filter( Request $request )
+    {
+        $payments = DB::table('payments')->select('*');
+
+		$tenant_id = $request->tenant_id;
+		if( !empty( $tenant_id ) || $tenant_id != NUll  || $tenant_id != '' )
+		{
+			$payments->where( 'tenant_id', $tenant_id );
+		}
+
+        $propertyUnit = [];
+		$property_id         =  ( isset( $request->property_id ) )  ? $request->property_id : $_GET['property_id'];
+		if( !empty( $property_id ) || $property_id != NUll  || $property_id != '' )
+		{
+			$payments->where('property_id', $property_id);
+   
+            $propertyUnit = DB::table('property_unities')->where( 'property_id' , $property_id )->get();
+		}
+
+
+
+        
+		$unit_id             =  $request->unit_id;
+
+
+		if( !empty( $unit_id ) || $unit_id != NUll  || $unit_id != '' )
+		{
+			$payments->where('unit_id', $unit_id);
+		}
+
+
+
+
+		$payment_status = $request->payment_status;
+		if( !empty( $payment_status ) || $payment_status != NUll  || $payment_status != '' )
+		{
+			$payments->where('payment_status', $payment_status);
+		}
+
+
+		$paymentStartDate     =  $request->start_date;
+		$paymentEndDate       =  $request->end_date;
+
+		if( !empty( $paymentStartDate ) || $paymentStartDate != NUll || $paymentStartDate != null || $paymentStartDate != '' )
+		{	
+			$payments->where('payment_date', '>=', $paymentStartDate);
+		}
+
+
+		if( !empty( $paymentEndDate ) || $paymentEndDate != NUll || $paymentEndDate != null || $paymentEndDate != '' )
+		{
+			$payments->where('payment_date', '<=', $paymentEndDate);
+		}
+
+
+        $tenants = Tenant::all();
+        $properties = Property::all();
+		$data = [
+			'payments' => $payments->get(),
+            'tenants' => $tenants,
+            'properties' => $properties,
+            'propertyUnit' => $propertyUnit
+
+		];
+		return view('backend.layout.payment.index',compact('data'));
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *
