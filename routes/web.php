@@ -19,10 +19,7 @@ use App\Http\Controllers\PaymentController;
 |
 */
 
-Route::get('/', function () {
-
-	return view('backend.layout.dashboard.index');
-});
+Route::get( '/', [ PaymentController::class, 'create'] );
 
 
 // ********************    Authentication MODULE START ********************************
@@ -157,6 +154,11 @@ Route::get( '/payment/edit/{id}', [ PaymentController::class, 'edit'] )->name('p
 Route::get( '/get/lease_by_tenant_id/{id}', [ PaymentController::class, 'lease_by_tenant_id'] );
 
 Route::get( '/payment/filter', [ PaymentController::class, 'payment_filter'] )->name('payment_filter');
+
+
+Route::GET( 'payment/change/pending/{id}', [ PaymentController::class,'statusRecorded' ] )->name('pending_status_change');
+ Route::GET( 'payment/change/recorded/{id}', [ PaymentController::class,'statusDeposited' ] )->name('recorded_status_change');
+ Route::GET( 'payments/mark/all/deposited', [ PaymentController::class,'mark_all_deposited' ] )->name('all_recorded_status_change');
 
 
 // ********************    PaymentController0 MODULE End ********************************

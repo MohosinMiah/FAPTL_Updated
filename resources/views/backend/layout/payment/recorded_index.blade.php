@@ -20,6 +20,8 @@
 
 	<div class="row">
 		<div class="col-md-12">
+			<a class="btn btn-primary" href="{{ route('all_recorded_status_change') }}">Mark All Deposited</a>
+
 			{{--  Property List  Start   --}}
 			<!-- DataTales Example -->
 			<div class="card shadow mb-4">
@@ -88,7 +90,7 @@
 											}
 										?>
 										</td>
-										<td>{{ $payment->payment_amount }}</td>
+										<td>$ {{ $payment->payment_amount }}</td>
 										<td>{{ $payment->payment_date }}</td>
 										<td>
 											<?php
@@ -138,7 +140,7 @@
 											?>
 										</td>
 										<td>
-											<a class="btn btn-xs btn-danger" href="{{ route('payment_show', $payment->id) }}" onclick="return confirm('Are You Agree To Change Payment Status Recorded To Deposited')"><i class="fa fa-rocket"  title="Change Payment Status Recorded To Deposited"></i></a>
+											<a class="btn btn-xs btn-warning" href="{{ route('recorded_status_change', $payment->id) }}" onclick="return confirm('Are You Agree To Change Payment Status Recorded To Deposited')"><i class="fa fa-rocket"  title="Change Payment Status Recorded To Deposited"></i></a>
 											<a class="btn btn-xs btn-info" href="{{ route('payment_show', $payment->id) }}"><i class="fa fa-eye"></i></a>
                                             <a class="btn btn-xs btn-success" href="{{ route('payment_edit', $payment->id) }}"><i class="fa fa-edit"></i></a>
 										</td>

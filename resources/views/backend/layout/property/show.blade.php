@@ -17,7 +17,15 @@
 	<?php $property = $data['property']; ?>
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800">View Property : {{ $property->name }} , ID: {{  $property->id }}</h1>
+
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Page Heading -->
+			<h3 class="text text-info">View Property : {{ $property->name }} , ID: {{  $property->id }}</h3>
+			<a href="{{ route('property_list') }}" class="btn btn-primary marginBottom" >Property List</a>
+		</div>
+	</div>
+
 
 	<div class="row">
 		@if(session('status'))
@@ -58,74 +66,26 @@
 						<td class="themeLabel">Size : </td>
 						<td> {{ $property->size }}</td>
 					</tr>
-					<tr>
-						<td>
-							<?php
-							if( $property->type == 1 )
-							{
-								?>
-								<a class="theme-btn " href="{{ route('property_unit_add_form', $property->id) }}"> Add New Unit</a>
-								<?php
-							}
-							?>
-							<a class="theme-btn" href="{{ route('property_unit_list') }}"> All Units</a>
-							<a class="theme-btn " href="{{ route('property_list') }}"> Property List</a>
-						</td>
-					</tr>
+					
 				</tbody>
 		
 			  </table>
-			{{--  <form>
-				@csrf
-				<div class="form-group">
-					<label for="name">property Name <span class="required_field"> (*) </span> </label>
-					<input type="text" name="name" id="name"  required class="form-control" value="{{ $property->name }}" readonly >
+
+			  <div class="row">
+				<div class="col-md-12 marginBottom" >
+					<?php
+					if( $property->type == 1 )
+					{
+						?>
+						<a class="btn btn-primary" href="{{ route('property_unit_add_form', $property->id) }}"> Add New Unit</a>
+						<?php
+					}
+					?>
+					<a class="btn btn-primary" href="{{ route('property_unit_list') }}"> All Units</a>
+					<a class="btn btn-primary" href="{{ route('property_list') }}"> Property List</a>
 				</div>
-
-				<div class="form-group">
-					<label for="type"> Type <span class="required_field"> (*) </span> </label>
-						<select class="form-control" name="type" id="type" readonly>
-							<option value="1" <?php if( $property->type == 1 ) { echo "selected"; } ?>>Multiple Unit</option>
-							<option value="2" <?php if( $property->type == 2 ) { echo "selected"; } ?>>Single Unit</option>
-						</select>
-				</div>
-
-				
-				<div class="form-group">
-					<label for="size"> Size <span class="required_field"> (*) </span> </label>
-					<input type="number" name="size" id="size"  class="form-control"  value="{{ $property->size }}" readonly >
-				</div>
-
-				<div class="form-group">
-					<label for="address"> Address  </label>
-					<textarea name="address" id="address"  readonly >{{ $property->address }}</textarea> 
-				</div>
-
-				<div class="form-group">
-					<label for="city"> City  </label>
-					<input type="text" name="city" id="city" class="form-control"   value="{{ $property->city }}" readonly >
-				</div>
-
-				<div class="form-group">
-					<label for="state"> State  </label>
-					<input type="text" name="state" id="state" class="form-control"   value="{{ $property->state }}" readonly>
-				</div>
-
-				<div class="form-group">
-					<label for="zip"> Zip  </label>
-					<input type="text" name="zip" id="zip" class="form-control"  value="{{ $property->zip }}" readonly>
-				</div>
-
-
-
-				<div class="form-group">
-					<label for="note"> Note </label>
-					<textarea readonly >{{ $property->note }}</textarea> 
-				</div>
-
-
-				<a  class="btn btn-primary" >Update Property</a>
-			</form>  --}}
+			  </div>
+			
 			{{--  property Registration Form Start   --}}
 
 			<!-- DataTales Example -->

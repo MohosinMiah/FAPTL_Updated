@@ -92,7 +92,7 @@
 											}
 										?>
 										</td>
-										<td>{{ $payment->payment_amount }}</td>
+										<td>$ {{ $payment->payment_amount }}</td>
 										<td>{{ $payment->payment_date }}</td>
 										<td>
 											<?php
@@ -142,7 +142,7 @@
 											?>
 										</td>
 										<td>
-											<a class="btn btn-xs btn-danger" href="{{ route('payment_show', $payment->id) }}" onclick="return confirm('Are You Agree To Change Payment Status Pending To Recorded')"><i class="fa fa-rocket"  title="Change Status Pending To Recorded"></i></a>
+											<a class="btn btn-xs btn-danger" href="{{ route('pending_status_change', $payment->id) }}" onclick="return confirm('Are You Agree To Change Payment Status Pending To Recorded')"><i class="fa fa-rocket"  title="Change Status Pending To Recorded"></i></a>
 											<a class="btn btn-xs btn-info" href="{{ route('payment_show', $payment->id) }}"><i class="fa fa-eye"></i></a>
                                             <a class="btn btn-xs btn-success" href="{{ route('payment_edit', $payment->id) }}"><i class="fa fa-edit"></i></a>
 										</td>

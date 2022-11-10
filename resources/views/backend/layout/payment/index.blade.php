@@ -68,7 +68,7 @@
 
 	<!-- Page Heading -->
 	<h1 class="h3 mb-4 text-gray-800"> Payment Report</h1>
-
+	<a class="btn btn-primary">Collect New Payment</a>
 	<form method="GET" action="{{ route('payment_filter') }}">
 		{{--  @csrf  --}}
 		<div class="form-group">
@@ -200,7 +200,7 @@
 											}
 										?>
 										</td>
-										<td>{{ $payment->payment_amount }}</td>
+										<td> $ {{ $payment->payment_amount }}</td>
 										<td>{{ $payment->payment_date }}</td>
 										<td>
 											<?php
