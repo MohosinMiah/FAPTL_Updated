@@ -65,7 +65,7 @@ class AuthenticationController extends Controller
 		if( !empty( $authenticatedUser )  )
 		{
 			// Store data in the session...
-			session( [ 'clinicID'    => $authenticatedUser->clinic_id     ] );
+			session( [ 'organizationID'    => $authenticatedUser->organization_id     ] );
 			session( [ 'authorID'    => $authenticatedUser->id     ] );
 			session( [ 'name'        => $authenticatedUser->name   ] );
 			session( [ 'phone'       => $authenticatedUser->phone  ] );
@@ -191,7 +191,7 @@ class AuthenticationController extends Controller
 	public function logout()
 	{
 		session( [ 'authorID'    => ''    ] );
-		session( [ 'clinicID'    => ''    ] );
+		session( [ 'organizationID'    => ''    ] );
 		session( [ 'name'        => ''    ] );
 		session( [ 'phone'       => ''    ] );
 		session( [ 'email'       => ''    ] );

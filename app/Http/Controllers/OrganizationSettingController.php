@@ -26,7 +26,7 @@ class OrganizationSettingController extends Controller
 		if( session( 'isLogin' ) == true && !empty( session( 'name' ) ) && session( 'role' ) == 1  )
 		{
 
-			$organization_info = OrganizationSetting::where( 'id' , session( 'clinicID' ) )->orderBy( 'id','DESC' )->first();
+			$organization_info = OrganizationSetting::where( 'id' , session( 'organizationID' ) )->orderBy( 'id','DESC' )->first();
 			$data = [
 				'organization_info' => $organization_info
 			];
@@ -62,7 +62,7 @@ class OrganizationSettingController extends Controller
     {
 		if( session( 'isLogin' ) == true && !empty( session( 'name' ) ) && session( 'role' ) == 1  )
 		{
-			$users = Authentication::where( 'clinic_id' , session( 'clinicID' ) )->orderBy( 'id','DESC' )->get();
+			$users = Authentication::where( 'organization_id' , session( 'organizationID' ) )->orderBy( 'id','DESC' )->get();
 			$data = [
 				'users' => $users
 			];
@@ -80,7 +80,7 @@ class OrganizationSettingController extends Controller
 	{
 		if( session( 'isLogin' ) == true && !empty( session( 'name' ) ) && session( 'role' ) == 1  )
 		{
-			$user = Authentication::where( 'clinic_id' , session( 'clinicID' ) )->where( 'id' , $userID )->first();
+			$user = Authentication::where( 'organization_id' , session( 'organizationID' ) )->where( 'id' , $userID )->first();
 
 			$data = [
 				'user' => $user,
@@ -104,7 +104,7 @@ class OrganizationSettingController extends Controller
 
 		if( session( 'isLogin' ) == true && !empty( session( 'name' ) ) && session( 'role' ) == 1  )
 		{
-			$adminUser = Authentication::where( 'clinic_id' , session( 'clinicID' ) )->where( 'id', $userID )->firstOrFail();
+			$adminUser = Authentication::where( 'organization_id' , session( 'organizationID' ) )->where( 'id', $userID )->firstOrFail();
 
 			$validator =  Validator::make($request->all(), [
 				'phone'    => [
@@ -170,7 +170,7 @@ class OrganizationSettingController extends Controller
 			if ($validator->fails()) {
 				return redirect( route('add_new_user') )->with('status', 'This phone number alrady used.Use different phone number');
 			} else {
-				$adminUser->clinic_id = session( 'clinicID' );
+				$adminUser->organization_id = session( 'organizationID' );
 				$adminUser->name      = $request->name;
 				$adminUser->phone     = $request->phone;
 				$adminUser->email     = $request->email;
@@ -240,7 +240,7 @@ class OrganizationSettingController extends Controller
 		if( session( 'isLogin' ) == true && !empty( session( 'name' ) ) && session( 'role' ) == 1  )
 		{
 			
-			$clinic = OrganizationSetting::where( 'id' , session( 'clinicID' ) )->firstOrFail();
+			$clinic = OrganizationSetting::where( 'id' , session( 'organizationID' ) )->firstOrFail();
 
 			$clinic->phone   = $request->phone;
 			$clinic->email   = $request->email;
