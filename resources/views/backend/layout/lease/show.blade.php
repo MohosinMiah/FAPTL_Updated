@@ -7,8 +7,13 @@
 	<?php $lease = $data['lease']; ?>
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800">Edit Lease</h1>
-
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Page Heading -->
+			<h3 class="text text-info">Show Lease</h3>
+			<a href="{{ route('lease_list') }}" class="btn btn-primary marginBottom" > Lease List</a>
+		</div>
+	</div>
 
 	<div class="row">
 		@if(session('status'))
@@ -125,8 +130,7 @@
 							<option value="2" <?php if( $lease->isActive == 2 ) { echo "selected"; } ?>>Deactive</option>
 						</select>
 				</div>
-
-				<a class="btn btn-primary">Back To Lease List</a>
+				<a href="{{ route('lease_list') }}" class="btn btn-primary" > Back To Lease List</a>
 			</form>
 			{{--  lease Registration Form Start   --}}
 

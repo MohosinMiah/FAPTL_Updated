@@ -58,7 +58,13 @@
 	<?php $lease = $data['lease']; ?>
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800">Edit Lease</h1>
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Page Heading -->
+			<h3 class="text text-info">Edit Lease</h3>
+			<a href="{{ route('lease_list') }}" class="btn btn-primary marginBottom" > Lease List</a>
+		</div>
+	</div>
 
 
 	<div class="row">

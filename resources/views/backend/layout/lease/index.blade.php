@@ -15,8 +15,13 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800"> Lease List</h1>
-
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Page Heading -->
+			<h3 class="text text-info"> Lease List</h3>
+			<a href="{{ route('lease_add_form') }}" class="btn btn-primary marginBottom" > Add New Lease </a>
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-md-12">
 			{{--  Property List  Start   --}}
