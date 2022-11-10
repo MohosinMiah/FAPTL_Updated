@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\OrganizationSettingController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyUnitController;
 use App\Http\Controllers\TenantController;
@@ -22,8 +23,8 @@ use App\Http\Controllers\PaymentController;
 Route::get( '/', [ PaymentController::class, 'create'] );
 
 
-// ********************    Authentication MODULE START ********************************
 
+// ********************    Authentication MODULE START ********************************
 
 Route::get( '/login', [ AuthenticationController::class, 'login'] )->name('login_form');
 
@@ -53,8 +54,11 @@ Route::post( '/profile/setting/phone/update/post', [ AuthenticationController::c
 Route::post( '/profile/setting/password/update/post', [ AuthenticationController::class, 'profile_setting_update_password'] )->name('profile_setting_update_password');
 
 
-// ********************    Authentication MODULE End ********************************
+Route::get( '/organization/user/delete/{id}', [ AuthenticationController::class, 'destroy'] )->name('organization_user_delete');
 
+
+
+// ********************    Authentication MODULE End ********************************
 
 
 
@@ -162,3 +166,21 @@ Route::GET( 'payment/change/pending/{id}', [ PaymentController::class,'statusRec
 
 
 // ********************    PaymentController0 MODULE End ********************************
+
+
+
+// ********************    OrganizationSetting MODULE START ********************************
+Route::get( '/organization/info', [ OrganizationSettingController::class, 'index'] )->name('organization_info');
+Route::post( '/organization/info/updated', [ OrganizationSettingController::class, 'update'] )->name('organization_info_update');
+
+Route::get( '/organization/add/user', [ OrganizationSettingController::class, 'add_new_user'] )->name('add_new_user');
+Route::post( '/organization/add/user/post', [ OrganizationSettingController::class, 'add_new_user_post'] )->name('add_new_user_post');
+
+Route::get( '/organization/user/list', [ OrganizationSettingController::class, 'user_list'] )->name('user_list');
+Route::get( '/organization/user/edit/{id}', [ OrganizationSettingController::class, 'organization_user_edit'] )->name('organization_user_edit');
+Route::post( '/organization/user/update/{id}', [ OrganizationSettingController::class, 'organization_update_user'] )->name('organization_update_user');
+
+
+
+
+// ********************    OrganizationSetting MODULE END ********************************

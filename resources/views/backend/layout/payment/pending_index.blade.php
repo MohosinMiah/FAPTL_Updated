@@ -16,9 +16,13 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800">Pending Payment List</h1>
-
-	
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Page Heading -->
+			<h3 class="text text-info">Pending Payment List</h3>
+			<a href="{{ route('payment_list') }}" class="btn btn-primary marginBottom">Payment Report</a>
+		</div>
+	</div>
 
 
 

@@ -76,7 +76,7 @@
 					Latest Payments
 				</h6>
 				<?php 
-				{{--  $payments = DB::table('payments')->orderBy('id','DESC')->limit(5)->get();
+				$payments = DB::table('payments')->orderBy('id','DESC')->limit(5)->get();
 				foreach( $payments as $payment )
 				{
 					?>
@@ -87,14 +87,14 @@
 							</div>
 						</div>
 						<div>
-							<div class="small text-gray-500">{{ $payment->date }}</div>
+							<div class="small text-gray-500">{{ $payment->payment_date }}</div>
 							<span class="font-weight-bold">{{ $payment->payment_amount }}</span>
 						</div>
 					</a>
 					<?php
-				}  --}}
+				}  
 				?>
-				{{--  <a class="dropdown-item text-center small text-gray-500" href="{{ route('payment_list') }}">Show All Alerts</a>  --}}
+				<a class="dropdown-item text-center small text-gray-500" href="{{ route('payment_list') }}">Show All Alerts</a>
 			</div>
 		</li>
 

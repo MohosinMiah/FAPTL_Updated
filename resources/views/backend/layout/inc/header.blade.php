@@ -12,13 +12,13 @@
 
     <title>
     <?php
-        {{--  if( session( 'isLogin' ) == true && !empty( session( 'name' ) ) )
+        if( session( 'isLogin' ) == true && !empty( session( 'name' ) ) )
         {
             echo session( 'name' );
         }else{
             header('Location: http://127.0.0.1:8000/login');
             exit;
-        }  --}}
+        }
     ?>
 </title>
 

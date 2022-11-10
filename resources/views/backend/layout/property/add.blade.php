@@ -40,6 +40,7 @@
 				<div class="form-group">
 					<label for="name">Property Name <span class="required_field"> (*) </span> </label>
 					<input type="text" name="name" id="name"  required class="form-control"  placeholder="Property Name" >
+					<input class="baseUrl" value="{{ URL::to('/'); }}" type="hidden">
 				</div>
 
 				<div class="form-group">

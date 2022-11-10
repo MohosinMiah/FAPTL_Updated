@@ -111,6 +111,19 @@
 		</div>
 	</li>
 
+	<?php
+	if( session( 'isLogin' ) == true && !empty( session( 'name' ) ) && session( 'role' ) == 1  )
+	{
+		?>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ route('organization_info') }}">
+				<i class="fas fa-fw fa-tachometer-alt"></i>
+				<span>Organization Settings </span>
+			</a>
+		</li>
+		<?php
+	}
+?>
 
 	<!-- Sidebar Toggler (Sidebar) -->
 	<div class="text-center d-none d-md-inline">

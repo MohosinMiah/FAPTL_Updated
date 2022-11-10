@@ -23,13 +23,12 @@
 	<script type="text/javascript">
 		$('#tenant_id').change(function(){
 			var id = $(this).val();
-			console.log( id );
-
+			var base_url = $('.baseUrl').val();
 			if( id > 0)
 			{
 				$.ajax({
 				   type:"get",
-				   url:"http://127.0.0.1:8000/get/lease_by_tenant_id/"+id,
+				   url: base_url + "/get/lease_by_tenant_id/"+id,
 				   'type': 'GET',
 				   'dataType': 'JSON',
 				   success:function(res)
@@ -130,6 +129,7 @@
 				<div class="form-group">
 					<label for="payment_date"> Payment Date  </label>
 					<input type="date" name="payment_date" id="payment_date" class="form-control"  value="<?php echo date("Y-m-d"); ?>"  >
+					<input class="baseUrl" value="{{ URL::to('/'); }}" type="hidden">
 				</div>
 
 

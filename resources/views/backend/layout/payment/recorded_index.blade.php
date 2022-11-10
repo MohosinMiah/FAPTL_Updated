@@ -16,11 +16,17 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800"> Recorded Payment List</h1>
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Page Heading -->
+			<h3 class="text text-info">Recorded Payment List</h3>
+			<a href="{{ route('payment_list') }}" class="btn btn-primary marginBottom">Payment Report</a>
+		</div>
+	</div>
 
 	<div class="row">
 		<div class="col-md-12">
-			<a class="btn btn-primary" href="{{ route('all_recorded_status_change') }}">Mark All Deposited</a>
+			<a class="btn btn-danger marginBottom" href="{{ route('all_recorded_status_change') }}" onClick="return confirm('Are you sure. Change All Recorded Payment To Deposited')">Mark All Deposited</a>
 
 			{{--  Property List  Start   --}}
 			<!-- DataTales Example -->
