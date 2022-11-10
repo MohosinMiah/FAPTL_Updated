@@ -10,6 +10,13 @@
 
 	<!-- Page Heading -->
 	<h1 class="h3 mb-4 text-gray-800">View Property Unit : {{ $property_unit->name }} , ID: {{  $property_unit->id }}</h1>
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Page Heading -->
+			<h3 class="text text-info">View Property Unit : {{ $property_unit->name }} , ID: {{  $property_unit->id }}</h3>
+			<a href="{{ route('property_unit_list') }}" class="btn btn-primary marginBottom" > Unit List</a>
+		</div>
+	</div>
 
 	<div class="row">
 		@if(session('status'))
@@ -80,7 +87,7 @@
 					</div>
 	
 
-				<a class="btn btn-primary">Back To Property Unit List</a>
+				<a href="{{ route('property_unit_list') }}" class="btn btn-primary marginBottom" >Back To Property Unit List </a>
 			</form>
 			{{--  property Registration Form Start   --}}
 

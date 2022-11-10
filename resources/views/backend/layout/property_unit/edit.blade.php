@@ -8,7 +8,14 @@
 	$property_unit = $data['property_unit'];
 	?>
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800">Edit property Unit</h1>
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Page Heading -->
+			<h3 class="text text-info">Edit property Unit</h3>
+			<a href="{{ route('property_unit_list') }}" class="btn btn-primary marginBottom" > Unit List</a>
+		</div>
+	</div>
+
 
 	<div class="row">
 		@if(session('status'))

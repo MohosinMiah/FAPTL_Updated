@@ -15,7 +15,13 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800"> Property List</h1>
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Page Heading -->
+			<h3 class="text text-info">Property Unit List</h3>
+		</div>
+	</div>
+
 
 	<div class="row">
 		<div class="col-md-12">
