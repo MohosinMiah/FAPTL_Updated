@@ -67,8 +67,15 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800"> Payment Report</h1>
-	<a class="btn btn-primary">Collect New Payment</a>
+
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Page Heading -->
+			<h3 class="text text-info">Payment Report</h3>
+			<a href="{{ route('payment_add_form') }}" class="btn btn-primary marginBottom">Collect New Payment</a>
+		</div>
+	</div>
+
 	<form method="GET" action="{{ route('payment_filter') }}">
 		{{--  @csrf  --}}
 		<div class="form-group">

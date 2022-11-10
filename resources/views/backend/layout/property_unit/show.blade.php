@@ -9,7 +9,6 @@
 	?>
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800">View Property Unit : {{ $property_unit->name }} , ID: {{  $property_unit->id }}</h1>
 	<div class="row">
 		<div class="col-md-12">
 			<!-- Page Heading -->

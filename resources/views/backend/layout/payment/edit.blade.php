@@ -70,7 +70,14 @@
 	?>
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800">Update Payment</h1>
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Page Heading -->
+			<h3 class="text text-info">Update Payment</h3>
+			<a href="{{ route('payment_list') }}" class="btn btn-primary marginBottom">Payment Report</a>
+		</div>
+	</div>
+
 
 	<div class="row">
 		@if(session('status'))

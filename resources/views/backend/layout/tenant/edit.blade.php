@@ -9,7 +9,7 @@
 		<div class="col-md-12">
 			<!-- Page Heading -->
 			<h3 class="text text-info">Edit Tenant</h3>
-			<a href="{{ route('tenant_list') }}" class="btn btn-primary marginBottom" > Unit List</a>
+			<a href="{{ route('tenant_list') }}" class="btn btn-primary marginBottom" > Tenant List</a>
 		</div>
 	</div>
 
