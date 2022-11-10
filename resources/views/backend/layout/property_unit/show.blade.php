@@ -87,7 +87,7 @@
 					</div>
 	
 
-				<a href="{{ route('property_unit_list') }}" class="btn btn-primary marginBottom" >Back To Property Unit List </a>
+				<a href="{{ route('property_unit_list') }}" class="btn btn-primary" >Back To Property Unit List </a>
 			</form>
 			{{--  property Registration Form Start   --}}
 

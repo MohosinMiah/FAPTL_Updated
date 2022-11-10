@@ -5,7 +5,13 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800">Show Tenant</h1>
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Page Heading -->
+			<h3 class="text text-info">Show Tenant</h3>
+			<a href="{{ route('tenant_list') }}" class="btn btn-primary marginBottom" > Unit List</a>
+		</div>
+	</div>
 
 	<div class="row">
 		@if(session('status'))
@@ -88,8 +94,7 @@
 					<label for="emergency_contact_email"> Emergency Contact Email</label>
 					<input type="text" name="emergency_contact_email" id="emergency_contact_email" class="form-control"  value="{{ $tenant->emergency_contact_email }}" readonly >
 				</div>
-
-				<a t class="btn btn-primary">Back To Tenant List</a>
+				<a href="{{ route('tenant_list') }}" class="btn btn-primary" > Back To Tenant List</a>
 			</form>
 			{{--  tenant Registration Form Start   --}}
 

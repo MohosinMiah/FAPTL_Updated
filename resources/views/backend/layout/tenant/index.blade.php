@@ -15,7 +15,13 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800"> Tenant List</h1>
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Page Heading -->
+			<h3 class="text text-info">Tenant List</h3>
+			<a href="{{ route('tenant_add_form') }}" class="btn btn-primary marginBottom" > Add New Tenant</a>
+		</div>
+	</div>
 
 	<div class="row">
 		<div class="col-md-12">
